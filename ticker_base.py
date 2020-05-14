@@ -28,7 +28,7 @@ class TickerBase:
             else:
                 state = ''
 
-            buff.append((symbol, tick, '%-8s%s %s' % (symbol, price, state)))
+            buff.append((symbol, tick, '%-10s%s %s' % (symbol, price, state)))
 
         return buff
 
