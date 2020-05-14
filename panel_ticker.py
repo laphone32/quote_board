@@ -3,7 +3,9 @@
 import os, time
 from ticker_base import TickerBase
 
-class PeriodicTicker(TickerBase):
+
+# output used for bitbar and argos plugin
+class PanelTicker(TickerBase):
     def __init__(self, ui, symbols):
         super().__init__(ui, symbols)
         self.interval = 1
@@ -25,8 +27,15 @@ class PeriodicTicker(TickerBase):
 
     def refresh(self):
         buff = super().refresh()
-        print(buff[int(time.time()) % (len(buff) * self.interval)])
+        print(buff[int(time.time()) % (len(buff) * self.interval)][2])
         print('---')
         for data in buff:
-            print(data)
-
+            print(data[2])
+            tick = data[1]
+            print('--%s' % (tick.name))
+            print('--%s @ %s' % (data[0], tick.exchange))
+            print('--volume: %s (%s %s)' % (tick.volume, tick.marketCap, tick.currency))
+            print('-----')
+            print('--source: %s' % tick.source.name)
+            print('--type: %s' % tick.source.type)
+            print('--interval: %s' % tick.source.interval)

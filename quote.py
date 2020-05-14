@@ -8,16 +8,26 @@ class QuoteProvider:
         Open = 1
         Post = 2
 
-    class Info:
-        def __init__(self, name, state, currency, price, priceChange, priceChangePercent, volume):
+    class Source:
+        def __init__(self, name, interval, quoteType):
             super().__init__()
             self.name = name
+            self.interval = interval
+            self.type = quoteType
+
+    class Info:
+        def __init__(self, name, exchange, state, currency, price, priceChange, priceChangePercent, volume, marketCap, source):
+            super().__init__()
+            self.name = name
+            self.exchange = exchange
             self.state = state
             self.currency = currency
             self.price = price
             self.priceChange = priceChange
             self.priceChangePercent = priceChangePercent
             self.volume = volume
+            self.marketCap = marketCap
+            self.source = source
 
     def fetch(self, symbols) -> {}:
         pass

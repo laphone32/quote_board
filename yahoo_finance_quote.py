@@ -4,7 +4,7 @@ import requests
 from quote import QuoteProvider
 
 class YahooFinanceQuoteProvider(QuoteProvider):
-    __fields="symbol,marketState,shortName,currency,regularMarketPrice,regularMarketChange,regularMarketChangePercent,preMarketPrice,preMarketChange,preMarketChangePercent,postMarketPrice,postMarketChange,postMarketChangePercent,regularMarketVolume"
+    __fields="symbol,marketState,shortName,fullExchangeName,quoteType,currency,regularMarketPrice,regularMarketChange,regularMarketChangePercent,preMarketPrice,preMarketChange,preMarketChangePercent,postMarketPrice,postMarketChange,postMarketChangePercent,regularMarketVolume,marketCap,sourceInterval,quoteSourceName"
 
     def fetch(self, symbols):
         r = requests.get('https://query1.finance.yahoo.com/v7/finance/quote?lang=en-US&corsDomain=finance.yahoo.com&fields=' + self.__fields + '&symbols=' + ','.join(symbols)).json()['quoteResponse']['result']
@@ -33,7 +33,7 @@ class YahooFinanceQuoteProvider(QuoteProvider):
                 __priceChange = symbol['regularMarketChange']
                 __priceChangePercent = symbol['regularMarketChangePercent']
 
-            ret.update({symbol['symbol']: QuoteProvider.Info(symbol['shortName'], __state, symbol['currency'], __price, __priceChange, __priceChangePercent, symbol['regularMarketVolume'])})
+            ret.update({symbol['symbol']: QuoteProvider.Info(symbol['shortName'], symbol['fullExchangeName'], __state, symbol['currency'], __price, __priceChange, __priceChangePercent, symbol.get('regularMarketVolume', 0), symbol.get('marketCap', 0), QuoteProvider.Source(symbol.get('quoteSourceName', 'YAHOO'), symbol.get('sourceInterval', 'Unknown'), symbol['quoteType']))})
 
         return ret
 

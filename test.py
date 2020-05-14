@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 from yahoo_finance_quote import YahooFinanceQuoteProvider
+from symbols import symbols
 
-symbols = ['AAPL', '2330.TW', '^VIX', 'JPY=X']
 x = YahooFinanceQuoteProvider().fetch(symbols)
 
 print(x)

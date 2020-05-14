@@ -2,9 +2,7 @@
 
 from ticker_base import TickerBase
 from ascii_ui import AsciiUI
-
-
-symbols = ['GOOG', '2330.TW', '^VIX', 'JPY=X']
+from symbols import symbols
 
 for data in TickerBase(AsciiUI(), symbols).refresh():
     print(data)

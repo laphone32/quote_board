@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
-from periodic_ticker import PeriodicTicker
+from panel_ticker import PanelTicker
 from ascii_ui import AsciiUI
+from symbols import symbols
 
-symbols = ['GOOG', '2330.TW', '^VIX', 'JPY=X']
-PeriodicTicker(AsciiUI(), symbols).refresh()
+PanelTicker(AsciiUI(), symbols).refresh()
 
